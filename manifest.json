@@ -51,9 +51,14 @@
         /* 小程序特有相关 */
         "appid" : "wx1b083d9436cd3d12",
         "setting" : {
-            "urlCheck" : true,
-			"checkSiteMap": false
+            "urlCheck" : false,
+            "checkSiteMap" : false
         },
-        "usingComponents" : true
+        "usingComponents" : true,
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : ""
+            }
+        }
     }
 }
