@@ -1,6 +1,9 @@
 <template>
 	<view>
 		<!-- 轮播图 -->
+		<view class="search-box">
+			<my-search @click='gotoSearch'></my-search>
+		</view>
 		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" :circular="true">
 			<swiper-item v-for="(item,index) in swiperList" :key="index">
 				<navigator class="swiper-item" :url="`/subpkg/goods_detail/goods_detail?goods_id=`+item.goods_id">
@@ -26,7 +29,8 @@
 					</navigator>
 					<!-- 右侧大盒子 -->
 					<view class="right-item.box">
-						<navigator class="right-img-item" v-for="(item2,i2) in item.product_list" :key='i2' v-if="i2 !==0" :url="item2.url">
+						<navigator class="right-img-item" v-for="(item2,i2) in item.product_list" :key='i2'
+							v-if="i2 !==0" :url="item2.url">
 							<image :src="item2.image_src" mode="widthFix" :style="{width:item2.image_width+'rpx'}">
 							</image>
 						</navigator>
@@ -91,6 +95,11 @@
 					})
 				})
 				this.flooorList = res.message
+			},
+			gotoSearch() {
+				uni.navigateTo({
+					url: '/subpkg/search/search'
+				})
 			}
 		},
 		// 获取分类导航方法
@@ -136,5 +145,11 @@
 			flex-wrap: wrap;
 			justify-content: space-around;
 		}
+	}
+
+	.search-box {
+		position: sticky;
+		top: 0;
+		z-index: 999;
 	}
 </style>

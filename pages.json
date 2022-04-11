@@ -26,7 +26,7 @@
                 
                 }
                 ,{
-                    "path" : "my-search/my-search",
+                    "path" : "search/search",
                     "style" :                                                                                    
                 {
                     "navigationBarTitleText": "",
@@ -75,4 +75,5 @@
 		// 	"background": "#efeff4"
 		// }
 	}
+	
 }
