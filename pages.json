@@ -25,6 +25,15 @@
                 }
                 
                 }
+                ,{
+                    "path" : "my-search/my-search",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
             ]
 	}],
 	"tabBar":{
