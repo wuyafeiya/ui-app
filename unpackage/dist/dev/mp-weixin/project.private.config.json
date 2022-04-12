@@ -23,6 +23,13 @@
           "name": "",
           "pathName": "subpkg/goods_list/goods_list",
           "query": "cid=26",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "subpkg/goods_detail/goods_detail",
+          "query": "goods_id=5",
           "scene": null,
           "launchMode": "default"
         }
