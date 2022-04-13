@@ -39,7 +39,6 @@ export default {
 			state.cart.forEach(x => x.goods_state = newState)
 			this.commit('m_cart/saveToStoreage')
 		},
-		
 		removeGoodsById(state, goods_id) {
 			state.cart = state.cart.filter(x => x.goods_id !== goods_id)
 			this.commit('m_cart/saveToStoreage')
@@ -61,6 +60,6 @@ export default {
 			return state.cart.filter(x => x.goods_state)
 				.reduce((total, item) => total += item.goods_count * item.goods_price, 0)
 				.toFixed(2)
-		},
+		}
 	}
 }

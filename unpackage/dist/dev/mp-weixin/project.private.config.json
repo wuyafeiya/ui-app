@@ -37,8 +37,8 @@
           "name": "",
           "pathName": "pages/cart/cart",
           "query": "",
-          "scene": null,
-          "launchMode": "default"
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
