@@ -1,12 +1,14 @@
 <template>
 	<view class="uni-numbox">
 		<view @click="_calcValue('minus')" class="uni-numbox__minus uni-numbox-btns" :style="{background}">
-			<text class="uni-numbox--text" :class="{ 'uni-numbox--disabled': inputValue <= min || disabled }" :style="{color}">-</text>
+			<text class="uni-numbox--text" :class="{ 'uni-numbox--disabled': inputValue <= min || disabled }"
+				:style="{color}">-</text>
 		</view>
 		<input :disabled="disabled" @focus="_onFocus" @blur="_onBlur" class="uni-numbox__value" type="number"
 			v-model="inputValue" :style="{background, color}" />
 		<view @click="_calcValue('plus')" class="uni-numbox__plus uni-numbox-btns" :style="{background}">
-			<text class="uni-numbox--text" :class="{ 'uni-numbox--disabled': inputValue >= max || disabled }" :style="{color}">+</text>
+			<text class="uni-numbox--text" :class="{ 'uni-numbox--disabled': inputValue >= max || disabled }"
+				:style="{color}">+</text>
 		</view>
 	</view>
 </template>
@@ -73,6 +75,11 @@
 			value(val) {
 				this.inputValue = +val;
 			},
+		inputValue(newVal,oldVal){
+			if(+newVal!==+oldVal && Number(newVal) && String(newVal).indexOf('.')===-1){
+				this.$emit('change',newVal)
+			}
+		},
 			modelValue(val) {
 				this.inputValue = +val;
 			}
@@ -131,9 +138,9 @@
 			},
 			_onBlur(event) {
 				this.$emit('blur', event)
-				let value = event.detail.value;
-				if (isNaN(value)) {
-					this.inputValue = this.min;
+				let value = parseInt(event.detail.value);
+				if (!value) {
+					this.inputValue = 1;
 					return;
 				}
 				value = +value;
@@ -146,7 +153,6 @@
 				this.inputValue = value.toFixed(String(scale).length - 1);
 				this.$emit("change", +this.inputValue);
 				this.$emit("input", +this.inputValue);
-				this.$emit("update:modelValue", +this.inputValue);
 			},
 			_onFocus(event) {
 				this.$emit('focus', event)
@@ -154,7 +160,7 @@
 		}
 	};
 </script>
-<style lang="scss" >
+<style lang="scss" scoped>
 	$box-height: 26px;
 	$bg: #f5f5f5;
 	$br: 2px;

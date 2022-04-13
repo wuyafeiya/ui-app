@@ -56,7 +56,6 @@
 				"selectedIconPath": "static/tab_icons/my-active.png"
 			}
 		]
-
 	},
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
@@ -67,5 +66,4 @@
 		// 	"background": "#efeff4"
 		// }
 	}
-
 }

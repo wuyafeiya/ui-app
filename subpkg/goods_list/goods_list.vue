@@ -50,7 +50,7 @@
 		methods: {
 			gotoDetail(item) {
 				uni.navigateTo({
-					url:'/subpkg/goods_detail/goods_detail?goods_id=' + item.goods_id
+					url: '/subpkg/goods_detail/goods_detail?goods_id=' + item.goods_id
 				})
 			},
 			async getGoodsList(cb) {
@@ -63,7 +63,6 @@
 				if (res.meta.status !== 200) return uni.$showMsg()
 				this.goodsList = [...this.goodsList, ...res.message.goods]
 				this.total = res.message.total
-
 			},
 		}
 	}

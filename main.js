@@ -2,6 +2,7 @@
 // #ifndef VUE3
 import Vue from 'vue'
 import App from './App'
+import store from './store/store.js'
 import { $http } from '@escook/request-miniprogram'
 uni.$http = $http
 $http.baseUrl = 'https://www.uinav.com'
@@ -28,7 +29,8 @@ Vue.config.productionTip = false
 App.mpType = 'app'
 
 const app = new Vue({
-    ...App
+    ...App,
+	store
 })
 app.$mount()
 // #endif

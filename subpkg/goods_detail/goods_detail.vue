@@ -28,13 +28,37 @@
 			<!-- buttonGroup 右侧按钮的配置项 -->
 			<!-- click 左侧按钮的点击事件处理函数 -->
 			<!-- buttonClick 右侧按钮的点击事件处理函数 -->
-			<uni-goods-nav :fill="true" :options="options" :buttonGroup="buttonGroup" @click="onClick" @buttonClick="buttonClick" ></uni-goods-nav>
+			<uni-goods-nav :fill="true" :options="options" :buttonGroup="buttonGroup" @click="onClick"
+				@buttonClick="buttonClick"></uni-goods-nav>
 		</view>
 	</view>
 </template>
 
 <script>
+	import {
+		mapState,
+		mapMutations,
+		mapGetters
+	} from 'vuex'
 	export default {
+		computed: {
+			// 调用 mapState 方法，把 m_cart 模块中的 cart 数组映射到当前页面中，作为计算属性来使用
+			// ...mapState('模块的名称', ['要映射的数据名称1', '要映射的数据名称2'])
+			...mapState('m_cart', ['cart']),
+			...mapGetters('m_cart', ['total'])
+		},
+		watch: {
+			total: {
+				handler(newVal) {
+					const findResult = this.options.find((x) => x.text === '购物车')
+					if (findResult) {
+						findResult.info = newVal
+					}
+				},
+				// immediate 属性用来声明此侦听器，是否在页面初次加载完毕后立即调用
+				 immediate: true
+			}
+		},
 		data() {
 			return {
 				// 商品详情
@@ -59,7 +83,7 @@
 						backgroundColor: '#ffa200',
 						color: '#fff'
 					}
-				]
+				],
 			}
 		},
 		onLoad(options) {
@@ -67,6 +91,7 @@
 			this.getGoodsDetail(goods_id)
 		},
 		methods: {
+			...mapMutations('m_cart', ['addToCart']),
 			async getGoodsDetail(goods_id) {
 				const {
 					data: res
@@ -84,11 +109,24 @@
 					urls: this.goods_info.pics.map(x => x.pics_big)
 				})
 			},
-			onClick(e){
-				if(e.content.text==='购物车'){
+			onClick(e) {
+				if (e.content.text === '购物车') {
 					uni.switchTab({
-						url:'/pages/cart/cart'
+						url: '/pages/cart/cart'
 					})
+				}
+			},
+			buttonClick(e) {
+				if (e.content.text === '加入购物车') {
+					const goods = {
+						goods_id: this.goods_info.goods_id, // 商品的Id
+						goods_name: this.goods_info.goods_name, // 商品的名称
+						goods_price: this.goods_info.goods_price, // 商品的价格
+						goods_count: 1, // 商品的数量
+						goods_small_logo: this.goods_info.goods_small_logo, // 商品的图片
+						goods_state: true
+					}
+					this.addToCart(goods)
 				}
 			}
 		}
@@ -143,10 +181,12 @@
 		font-size: 12px;
 		color: gray;
 	}
-	.goods-detail-container{
+
+	.goods-detail-container {
 		padding-bottom: 50px;
 	}
-	.goods_nav{
+
+	.goods_nav {
 		position: fixed;
 		bottom: 0;
 		left: 0;
